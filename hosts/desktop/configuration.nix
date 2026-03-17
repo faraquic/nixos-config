@@ -82,15 +82,16 @@
     hostName = "nixos";
     networkmanager.enable = true;
     networkmanager.dns = "systemd-resolved";
-    firewall.enable = false;
+    firewall.enable = true;
   };
 
   services.resolved = {
     enable = true;
     llmnr = "false";
     extraConfig = ''
-      DNS=172.18.0.2
-      FallbackDNS=178.46.167.178#dns.faraquic.tech,1.1.1.1
+      DNS=178.46.167.178#dns.faraquic.tech
+      #DNS=172.18.0.2
+      FallbackDNS=8.8.8.8
     '';
   };
 
@@ -134,6 +135,7 @@
     extraSpecialArgs = {
       inherit pkgs-unstable;
       inherit inputs;
+      vscode-extensions = inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace;
     };
     users.faraquic = { pkgs, ... }: {
       imports = [

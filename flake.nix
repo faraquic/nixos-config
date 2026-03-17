@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url          = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
 
     disko = {
       url = "github:nix-community/disko";
@@ -17,6 +18,11 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,13 +40,16 @@
   {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit inputs pkgs-unstable; };
+      specialArgs = {
+        inherit inputs pkgs-unstable;
+        vscode-extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+      };
       modules = [
         { nixpkgs.hostPlatform = system; }
+        { nixpkgs.overlays = [ inputs.nur.overlays.default ]; }
         
         disko.nixosModules.disko
         ./disko.nix
-
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
 

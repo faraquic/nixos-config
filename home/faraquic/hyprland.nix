@@ -35,6 +35,7 @@ in
       exec-once = wl-paste --type image --watch cliphist store
       exec-once = wl-clip-persist --clipboard both
       exec-once = ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
+      exec-once = podman compose -f ~/.local/share/dashy/docker-compose.dashy.yml up -d --pull always
       exec-once = hyprpaper
       exec-once = v2rayN
       exec-once = discord
@@ -119,7 +120,7 @@ in
       bind = $mod,       Return, exec, kitty
       bind = $mod,       Q,      killactive
       bind = $mod,       V,      togglefloating
-      bind = $mod,       F,      fullscreen
+      bind = $mod,       F11,    fullscreen
       bind = $mod SHIFT, Q,      exit
 
       # Programs
@@ -152,14 +153,14 @@ in
       bind = $mod SHIFT, Print,  exec, grim -g "$(slurp)" - | swappy -f -
 
       # Setting output device
-      bind = $mod, O, exec, wpctl set-default 46; notify-send "Audio → Headset"
+      bind = $mod,       O, exec, wpctl set-default 46; notify-send "Audio → Headset"
       bind = $mod SHIFT, O, exec, wpctl set-default 74; notify-send "Audio → Speakers"
       bind = $mod SHIFT, P, exec, pavucontrol
       
       # Volume (using wpctl + avizo OSD)
       binde = $mod, F1, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && volumectl up
       binde = $mod, F2, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && volumectl down
-      bind  = $mod, F4,       exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      bind  = $mod, F4, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
       # Focus
       bind = $mod, left,  movefocus, l

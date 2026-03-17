@@ -12,6 +12,25 @@
   home.homeDirectory = "/home/faraquic";
   home.stateVersion  = "25.11";
   home.file.".ssh/id_rsa.pub".text = ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDhSxPJFvyO6uhBV4q3URVgRAvwUTX9K49R6XBcmWIoADvPXApm+8XI6I4ZK/Wap6h7GU2UAhcxcJWMSo7Uc67LB/D4LHIEa8CrTWoKSsh0IcmCvQPZWEpIwHlJPgcb8Mn4NlA353JMIo6ZMFns+evshjXbHS5PvDB+OHJ9SyBu59j6bTWNM89J1Ox8TlJk9L7KJD4t4Xpb+5XqTxYxUGHR1jLRx3+M/Za2dY4IRsc2BlE8Gf/x8xiQrDICYRKqp868cw1x5G6vDe+5TK2yLwF4iaYIJ0A9RsPLHG99e1vIIhJOypm9CLBXEc2tAx3lNdVpf9uawmwb3w7aH5GXpgvrh1gXjlNLD6dwWDVzHfkALT+zj4TBWpKevy45xUgZiJynrhV/lPOqxcE06s3VC1x1Gk72Y9Nx5L5BhVSZR/hR4R3tsm4gzJxfLzWJOje2ClD1E9GO+QnGSi7RkDmu7YNw94QmKT8YMq54OFMzfsjpmFx50eJM9Sj8fyLy3Pkyw/k= NiK@Arch'';
+  home.file.".local/share/dashy/docker-compose.dashy.yml".text = ''
+    services:
+      dashy:
+        image: lissy93/dashy:latest
+        container_name: dashy
+        restart: always
+        ports:
+          - "8001:80/tcp"
+        volumes:
+          - ./conf.yml:/app/public/conf.yml
+        environment:
+          - NODE_ENV=production
+          - TZ=Etc/GMT-5
+        logging:
+          driver: "json-file"
+          options:
+            max-size: "10m"
+            max-file: "3"
+  '';
 
   programs.home-manager.enable = true;
 
@@ -26,7 +45,7 @@
     ouch inxi
 
     # Desktop utilities
-    brightnessctl
+    dconf-editor
     playerctl
     pavucontrol
     libnotify
@@ -68,8 +87,10 @@
 
   # Session variables (user-level, merged with system ones)
   home.sessionVariables = {
+    ADW_DEBUG_COLOR_SCHEME = "prefer-dark";
     XCURSOR_THEME = "catppuccin-macchiato-dark-cursors";
     XCURSOR_SIZE  = "24";
+    GTK_THEME = "catppuccin-macchiato-teal-standard+normal";
   };
 
   # XDG default directories
@@ -107,6 +128,11 @@
       "v2rayN/bin/xray/xray".source = "${pkgs.xray}/bin/xray";
       "v2rayN/bin/geoip.dat".source = "${pkgs.v2ray-geoip}/share/v2ray/geoip.dat";
       "v2rayN/bin/geosite.dat".source = "${pkgs.v2ray-domain-list-community}/share/v2ray/geosite.dat";
+    };
+    configFile = {
+      "gtk-4.0/gtk.css".text = ''
+        @import url("file://${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css");
+      '';
     };
   };
 }

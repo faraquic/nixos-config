@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, vscode-extensions, lib, ... }:
 
 {
   # Terminal: Kitty
@@ -375,7 +375,9 @@
   programs.firefox = {
     enable = true;
     profiles.faraquic = {
+      id = 0;
       name = "faraquic";
+      isDefault = true;
       settings = {
         # Privacy
         "privacy.trackingprotection.enabled"              = true;
@@ -393,6 +395,28 @@
         "browser.startup.page"                            = 3; # restore session
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        absolute-enable-right-click
+        return-youtube-dislikes
+        youtube-nonstop
+        clearurls
+        disconnect
+        untrap-for-youtube
+        user-agent-string-switcher
+        tampermonkey
+        sponsorblock
+        languagetool
+        adblocker-ultimate
+        ublock-origin
+        simple-translate
+        better-canvas
+        search-by-image
+        privacy-badger
+        youtube-enhancer-vc
+        enhanced-github
+        github-isometric-contributions
+        darkreader
+      ];
     };
   };
 
@@ -472,7 +496,44 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
-    profiles.default.extensions = with pkgs.vscode-extensions; [  ];
+    profiles.default.extensions =
+      (with pkgs.vscode-extensions; [
+        charliermarsh.ruff
+        esbenp.prettier-vscode
+        gruntfuggly.todo-tree
+        mikestead.dotenv
+        ms-azuretools.vscode-docker
+        ms-python.debugpy
+        ms-python.python
+        ms-python.vscode-pylance
+        pkief.material-icon-theme
+        ritwickdey.liveserver
+        rust-lang.rust-analyzer
+        streetsidesoftware.code-spell-checker
+        tamasfe.even-better-toml
+        usernamehw.errorlens
+        vadimcn.vscode-lldb
+        wakatime.vscode-wakatime
+      ])
+      ++ (with vscode-extensions; [
+        aaron-bond.better-comments
+        anseki.vscode-color
+        cardinal90.multi-cursor-case-preserve
+        denjay.fold-level
+        dlahmad.dracula-for-rust-theme
+        evgeniypeshkov.syntax-highlighter
+        formulahendry.code-runner
+        github.github-vscode-theme
+        github.vscode-github-actions
+        icrawl.discord-vscode
+        inci-august.august-themes
+        ms-azuretools.vscode-containers
+        ms-python.vscode-python-envs
+        njpwerner.autodocstring
+        njqdev.vscode-python-typehint
+        streetsidesoftware.code-spell-checker-russian
+        tabzyragu.coffee-status
+      ]);
     profiles.default.userSettings = {
       "workbench.colorTheme"    = "GitHub Dark Default";
       "workbench.iconTheme"     = "material-icon-theme";
@@ -493,6 +554,7 @@
       "files.autoSave"          = "afterDelay";
       "git.enableSmartCommit"   = true;
       "telemetry.telemetryLevel" = "off";
+      "workbench.activityBar.location" = "top";
     };
   };
 }

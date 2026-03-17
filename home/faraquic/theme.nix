@@ -6,7 +6,7 @@
     enable = true;
 
     theme = {
-      name = "catppuccin-macchiato-teal-standard";
+      name = "catppuccin-macchiato-teal-standard+normal";
       package = pkgs.catppuccin-gtk.override {
         variant = "macchiato";
         accents = [ "teal" ];
@@ -65,10 +65,10 @@
   ];
 
   # GTK settings via dconf (takes effect at runtime)
+  dconf.enable = true;
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme  = "prefer-dark";
-      gtk-theme     = "catppuccin-macchiato-teal-standard";
       icon-theme    = "Colloid-teal-dark";
       cursor-theme  = "catppuccin-macchiato-dark-cursors";
       cursor-size   = 24;
