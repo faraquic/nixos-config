@@ -19,7 +19,7 @@
         container_name: dashy
         restart: always
         ports:
-          - "8001:80/tcp"
+          - "8001:8080/tcp"
         volumes:
           - ./conf.yml:/app/public/conf.yml
         environment:
