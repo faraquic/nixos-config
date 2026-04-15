@@ -18,7 +18,7 @@ in
     extraConfig = ''
       # Monitor
       # Set your resolution/refresh rate here. "preferred" = auto-detect.
-      monitor = , preferred, auto, 1
+      monitor = , 2560x1440@100, auto, 1
 
       # NVIDIA env (duplicated here for Hyprland's own env system)
       env = LIBVA_DRIVER_NAME,nvidia

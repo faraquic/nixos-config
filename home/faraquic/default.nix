@@ -66,6 +66,7 @@
     pkgs-unstable.ayugram-desktop
     (discord.override { withVencord = true; })
     onlyoffice-desktopeditors
+    trilium-desktop
   ];
 
   # Session variables (user-level, merged with system ones)

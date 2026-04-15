@@ -1,4 +1,4 @@
-{ config, pkgs, vscode-extensions, lib, ... }:
+{ config, pkgs, pkgs-unstable, vscode-extensions, lib, ... }:
 
 {
   # Terminal: Kitty
@@ -555,6 +555,8 @@
       "git.enableSmartCommit"   = true;
       "telemetry.telemetryLevel" = "off";
       "workbench.activityBar.location" = "top";
+      "python.analysis.typeCheckingMode" = "strict";
+      "rust-analyzer.server.path" = "${pkgs-unstable.rust-analyzer}/bin/rust-analyzer";
     };
   };
 }
