@@ -533,6 +533,7 @@
         njqdev.vscode-python-typehint
         streetsidesoftware.code-spell-checker-russian
         tabzyragu.coffee-status
+        zxh404.vscode-proto3
       ]);
     profiles.default.userSettings = {
       "workbench.colorTheme"    = "GitHub Dark Default";

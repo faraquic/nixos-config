@@ -27,7 +27,7 @@
       };
       gpu = {
         apply_gpu_optimisations = "accept-responsibility";
-        gpu_device = 0;
+        gpu_device = 1;
         nv_powermizer_mode = 1; # NVIDIA: Prefer Maximum Performance
       };
       cpu = {
@@ -41,6 +41,7 @@
     vulkan-tools
     vulkan-validation-layers
     mangohud
+    gamescope
   ];
 
   environment.sessionVariables = {
