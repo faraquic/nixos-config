@@ -67,6 +67,7 @@
     (discord.override { withVencord = true; })
     onlyoffice-desktopeditors
     trilium-desktop
+    termius
     (prismlauncher.override {
       # Add binary required by some mod
       additionalPrograms = [ ffmpeg ];
