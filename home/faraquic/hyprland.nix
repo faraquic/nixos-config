@@ -33,8 +33,6 @@ in
       # Services managed by systemd (home-manager) start automatically:
       # waybar, dunst, hypridle, hyprpaper, wlsunset
       exec-once = wl-paste --type text  --watch cliphist store
-      exec-once = wl-paste --type image --watch cliphist store
-      exec-once = wl-clip-persist --clipboard both
       exec-once = ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
       exec-once = hyprpaper
       exec-once = v2rayN
@@ -221,12 +219,6 @@ in
           timeout    = 300;
           on-timeout = "hyprlock";
         }
-        # Display off after 10 min
-        {
-          timeout    = 600;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume  = "hyprctl dispatch dpms on";
-        }
       ];
     };
   };
@@ -314,12 +306,6 @@ in
         "keybind" : "l"
     }
     {
-        "label" : "hibernate",
-        "action" : "systemctl hibernate",
-        "text" : "Hibernate",
-        "keybind" : "h"
-    }
-    {
         "label" : "logout",
         "action" : "loginctl terminate-user $USER",
         "text" : "Logout",
@@ -330,12 +316,6 @@ in
         "action" : "systemctl poweroff",
         "text" : "Shutdown",
         "keybind" : "s"
-    }
-    {
-        "label" : "suspend",
-        "action" : "systemctl suspend",
-        "text" : "Suspend",
-        "keybind" : "u"
     }
     {
         "label" : "reboot",
